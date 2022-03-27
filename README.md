@@ -9,7 +9,7 @@ A project that attempts to abstract away the minutia of running data science exp
 # Example_exp
 * Included is an example experiment already set up with the required fields. You will find the full data set, marked Iris.csv, along with the training and testing data.
 
-# Setting up Your own Expiremnts
+# Setting up Your own Experiments
 ### Inside a the same directory, the following is required
 * pretrained model or model_config.
 * train_X, train_y, test_X, test_y
