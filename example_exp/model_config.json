@@ -1,0 +1,18 @@
+{
+    "model_init": {
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "activation": "relu",
+        "dims": [
+            8,
+            16,
+            3
+        ],
+        "loss": "mse"
+    },
+    "model_fit": {
+        "batch_size": 5,
+        "epochs": 10,
+        "shuffle": true
+    }
+}
