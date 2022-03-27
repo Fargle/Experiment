@@ -4,7 +4,7 @@ A project that attempts to abstract away the minutia of running data science exp
 # Setup
 * Install python 3.6.2, and create a virtual environment with `python -m venv <name of env>`.
 * Activate your environment and upgrade pip: `python -m pip install --upgrade pip`.
-* Install required packages, run `pip install -e <path to setup.py>'.
+* Install required packages, run `pip install -e <path to setup.py>`.
 
 # Example_exp
 * Included is an example experiment already set up with the required fields. You will find the full data set, marked Iris.csv, along with the training and testing data.
@@ -15,5 +15,5 @@ A project that attempts to abstract away the minutia of running data science exp
 * train_X, train_y, test_X, test_y
 
 # Use
-* `python experiment.py -exp <path to experiment> 
-* `python analysis.py -exp <path to experiment>
+* `python experiment.py -exp <path to experiment> `
+* `python analysis.py -exp <path to experiment>`
