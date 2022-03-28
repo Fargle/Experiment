@@ -17,4 +17,4 @@ A project that attempts to abstract away the minutia of running data science exp
 # Use
 * `python experiment.py -exp <path to experiment> `
 * `python analysis.py -exp <path to experiment>`
-* `streamlit run analysis.py -- -exp <path to experiment>
+* `streamlit run analysis.py -- -exp <path to experiment>`
