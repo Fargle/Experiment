@@ -38,10 +38,14 @@ class FeatureAnalysis:
 
     analyze: FeatureAnalysisFunction
     assets: AnalysisAssets
+    display_name: str
 
     def conduct(self):
         """Conduct Feature analysis"""
         return self.analyze(self.assets.X, self.assets.y)
+
+    def __str__(self):
+        return "Feature Analysis"
 
 
 def mutual_info_scores(X: pd.DataFrame, y: pd.DataFrame):
@@ -56,10 +60,14 @@ class ModelAnalysis:
 
     analyze: ModelAnalyisFunction
     assets: AnalysisAssets
+    display_name: str
 
     def conduct(self):
         """Execute model analysis"""
         return self.analyze(self.assets.model, self.assets.X, self.assets.y)
+
+    def __str__(self):
+        return "Model Analysis"
 
 
 def permutation_importance(
@@ -67,7 +75,7 @@ def permutation_importance(
 ):
     """Do permutation importance on data"""
     perm = PermutationImportance(model, random_state=1)
-    perm.fit(test_X[0:1000], test_y[0:1000])
+    perm.fit(test_X, test_y)
     return perm
 
 
@@ -87,22 +95,10 @@ def pdp_plot_closure(feature, feature_names):
     return pdp_plot
 
 
-def r_squared(model, test_X, test_y):
+def r_squared(model, test_X: pd.DataFrame, test_y: pd.DataFrame):
     """Get R squared"""
     predictions = model.predict(test_X)
     return r2_score(test_y, predictions)
-
-
-def confusion_matrix():
-    pass
-
-
-def principal_components():
-    pass
-
-
-def mutual_information():
-    pass
 
 
 def load_train_test(path: str):
@@ -130,9 +126,10 @@ def parse_args():
     return parser.parse_args()
 
 
-def run_app(app):
+def build_run_app_with(callbacks):
     """Run Front End App"""
     print("Inside Run_app")
+    app = analysis_app.App(callbacks)
     app.build()
     app.run()
 
@@ -158,23 +155,16 @@ def main():
         features=list(data["test_X"].columns),
     )
 
-    model_analysis = {
-        "Permutation Importance": ModelAnalysis(
-            permutation_importance, analysis_assets
+    callbacks = [
+        FeatureAnalysis(
+            mutual_info_scores,
+            analysis_assets,
+            display_name="Mutual Information Scores",
         ),
-        "PDP": ModelAnalysis(
-            pdp_plot_closure(lambda: feature, lambda: get_features), analysis_assets
-        ),
-    }
-    f_analysis = FeatureAnalysis(mutual_info_scores, analysis_assets)
+        ModelAnalysis(r_squared, analysis_assets, display_name="R2 Score"),
+    ]
 
-    callbacks = {
-        "Feature Analysis": f_analysis,
-        "Model Analysis": model_analysis,
-    }
-
-    app = analysis_app.App(callbacks)
-    run_app(app)
+    build_run_app_with(callbacks)
 
 
 if __name__ == "__main__":
